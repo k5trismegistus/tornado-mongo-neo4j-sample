@@ -1,15 +1,17 @@
 version: '3'
 
 services:
-  mongo:
+  mongodb:
     image: mongo:3.6
   neo4j:
     image: neo4j:3.3
   app:
     build: .
-    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - './backend:/app'
+    command: python server.py
     ports:
       - "8000:8000"
     depends_on:
-      - mongo
+      - mongodb
       - neo4j
