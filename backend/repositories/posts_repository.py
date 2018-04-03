@@ -1,6 +1,8 @@
 import os, sys
 sys.path.append(os.getcwd())
 
+from bson.objectid import ObjectId
+
 from entities import Post
 from .mongo_repository import MongoRepository
 
@@ -18,6 +20,16 @@ class PostsRepository(MongoRepository):
             ) for doc in docs
         ]
         return posts
+
+    def find_by_id(self, id):
+        print(id)
+        doc = self.collection.find_one({'_id': ObjectId(id)})
+        post = Post(
+                    id=doc['_id'],
+                    title=doc['title'],
+                    content=doc['content'],
+                )
+        return post
 
     def create_post(self, params):
         post_id = self.collection.insert_one({

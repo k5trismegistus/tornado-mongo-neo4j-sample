@@ -14,7 +14,7 @@ class PostsHandler(tornado.web.RequestHandler):
         posts = FindAllPosts().call()
 
         self.write(tornado.escape.json_encode({
-            "status": 200,
+            'status': 200,
             'posts': [post.serialize() for post in posts]
         }))
 
@@ -23,6 +23,6 @@ class PostsHandler(tornado.web.RequestHandler):
         post = CreatePost(params).call()
 
         self.write(tornado.escape.json_encode({
-            "status": 201,
+            'status': 201,
             'post': post.serialize()
         }))

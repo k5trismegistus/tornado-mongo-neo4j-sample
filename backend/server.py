@@ -7,11 +7,11 @@ from handlers import (
 
 def app():
     return tornado.web.Application([
-        (r"/api/(?P<version>v\d+)/posts", PostsHandler),
-        (r"/api/(?P<version>v\d+)/posts/(?P<id>\d+)", PostHandler),
+        (r'/api/(?P<version>v\d+)/posts', PostsHandler),
+        (r'/api/(?P<version>v\d+)/posts/(?P<id>\w+)', PostHandler),
     ])
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app = app()
     app.listen(8000)
     tornado.ioloop.IOLoop.current().start()

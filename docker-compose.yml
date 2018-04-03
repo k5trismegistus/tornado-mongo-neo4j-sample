@@ -3,6 +3,8 @@ version: '3'
 services:
   mongodb:
     image: mongo:3.6
+    ports:
+      - 27017:27017
   neo4j:
     image: neo4j:3.3
   app:
