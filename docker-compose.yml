@@ -7,6 +7,8 @@ services:
       - 27017:27017
   neo4j:
     image: neo4j:3.3
+    environment:
+      - NEO4J_AUTH=none
   app:
     build: .
     volumes:

@@ -10,5 +10,7 @@ class FindPostById():
         self.posts_repo = PostsRepository()
 
     def call(self):
-        posts = self.posts_repo.find_by_id(self.id)
-        return posts
+        post = self.posts_repo.find_by_id(self.id)
+        related_posts = self.posts_repo.find_related_posts(self.id)
+
+        return post
