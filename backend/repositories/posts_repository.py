@@ -49,7 +49,7 @@ class PostsRepository(MongoRepository, Neo4jRepository):
     def find_related_posts(self, id):
         with self.graph_database.session() as session:
             with session.begin_transaction() as tx:
-                for record in tx.run("MATCH (a:)-[:RELATED]->(f) "
+                for record in tx.run("MATCH (a:Posg)-[:RELATED]->(f) "
                                     "WHERE a.post_id = {id} "
-                                    "RETURN f.id", name=name):
+                                    "RETURN f.id", id=id):
                     print(record)
