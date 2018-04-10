@@ -46,6 +46,19 @@ class PostsRepository(MongoRepository, Neo4jRepository):
         post = Post(id=post_id, title=params.get('title', ''), content=params.get('content', ''))
         return post
 
+    def register_relation(self, lid, rid):
+        lnode = graph_database.find_one('Post', object_id=lid)
+        if (not lnode):
+            lid = graph_database.nodes.create(object_id=lid)
+
+        rnode = graph_database.find_one('Post', object_id=rid)
+        if (not rnode):
+            rid = graph_database.nodes.create(object_id=rid)
+
+        lnode.relationships.create('RELATED', rnode)
+        rnode.relationships.create('RELATED', lnode)
+
+
     def find_related_posts(self, id):
         with self.graph_database.session() as session:
             with session.begin_transaction() as tx:
